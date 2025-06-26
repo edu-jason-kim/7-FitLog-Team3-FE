@@ -1,18 +1,17 @@
 import { useState } from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import JournalsPost from './pages/journalsPost';
+import './css/style.css';
 
 function App() {
-  
   return (
-    <>
-      <div>
-        <p>dmaaa</p>
-      </div>
-      <h1>Vite + React</h1>
-        <p>
-          Edit and save to test HMR
-        </p>
-    </>
-  )
+    <BrowserRouter>
+      <Routes>
+        <Route path="/journals/post" element={<JournalsPost />} />
+        
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App 
+export default App ;
