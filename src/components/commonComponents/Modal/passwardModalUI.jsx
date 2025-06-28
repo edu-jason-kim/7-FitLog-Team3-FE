@@ -33,6 +33,8 @@ const PasswordModalUI = ({
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
 
+         <h2 className={styles.modalTitle}>{title}</h2>
+         <p className={styles.modalDescription}>{description}</p>
 
         <form onSubmit={handleSubmit} className={styles.modalForm}>
 

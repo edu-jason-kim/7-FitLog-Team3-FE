@@ -61,7 +61,8 @@ const PasswordModalContainer = ({
     try {
       const isValid = await validatePassword(inputPassword);
       if (isValid) {
-        onConfirmSuccess(); // 성공 시 콜백 함수 호출
+       setPassword('');
+        await onConfirmSuccess(); // 성공 시 콜백 함수 호출
         onClose(); // 모달 닫기
       } else {
         setError('비밀번호가 일치하지 않습니다.');
