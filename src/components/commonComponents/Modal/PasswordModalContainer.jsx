@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import PasswordModalUI from './PasswordModalUI';
 
-// actionType에 따른 텍스트 매핑 객체 (선택 사항: 별도 파일로 분리 가능)
+// actionType에 따른 텍스트 매핑 객체 
 const MODAL_TEXT_MAP = {
   'view': {
     title: '운동일지 조회',

@@ -32,10 +32,10 @@ const PasswordModalUI = ({
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
-        {/* ... (기존 나가기 버튼, 제목, 설명) ... */}
+
 
         <form onSubmit={handleSubmit} className={styles.modalForm}>
-          {/* label에 동적으로 클래스 적용 */}
+
           <label htmlFor="password-input" className={labelClassName}>
             비밀번호
           </label>
@@ -49,7 +49,7 @@ const PasswordModalUI = ({
               className={inputClassName} // 동적으로 결정된 클래스 적용
               disabled={isLoading}
             />
-            
+
             <span
               className={styles.passwordToggle}
               onClick={() => setShowPassword(!showPassword)}
