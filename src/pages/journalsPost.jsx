@@ -243,7 +243,7 @@ export default function JournalsPost() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (loading) return;
+    if (loading) return; // 중복 제출 방지
     setError('');
     setSuccess('');
     setLoading(true);
@@ -253,7 +253,7 @@ export default function JournalsPost() {
       setLoading(false);
       return;
     }
-    
+
     // 필수값, 길이, 조합, 일치, background 범위 모두 체크
     if (
       !isRequiredString(nickname) ||
