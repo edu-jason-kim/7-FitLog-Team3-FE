@@ -1,9 +1,11 @@
-// 일지 생성 페이지
+// 운동일지 생성 페이지
 
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 import styles from '../css/journalsPost.module.css';
 import icBgSelected from '../assets/ic_bg_selected.svg';
+import { Header } from "../components/commonComponents/Header";
 
 // 배경 이미지 import
 import img1 from '../assets/alvaro-reyes-zvmZiw3vdsQ-unsplash.png';
@@ -149,6 +151,7 @@ export default function JournalsPost() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   // 입력값별 에러 상태
   const [nicknameError, setNicknameError] = useState('');
@@ -240,7 +243,7 @@ export default function JournalsPost() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (loading) return; // 중복 제출 방지
+    if (loading) return;
     setError('');
     setSuccess('');
     setLoading(true);
@@ -250,6 +253,7 @@ export default function JournalsPost() {
       setLoading(false);
       return;
     }
+    
     // 필수값, 길이, 조합, 일치, background 범위 모두 체크
     if (
       !isRequiredString(nickname) ||
@@ -280,6 +284,9 @@ export default function JournalsPost() {
       });
       setSuccess('운동일지가 성공적으로 생성되었습니다!');
       resetForm();
+      setTimeout(() => {
+        navigate("/"); // 메인페이지로 이동
+      }, 1500); // 1.5초 후 이동 (원하는 시간으로 조절)
     } catch (err) {
       setError(err.response?.data?.message || '생성에 실패했습니다.');
     } finally {
@@ -288,67 +295,70 @@ export default function JournalsPost() {
   };
 
   return (
-    <div className={styles.container}>
-      <form onSubmit={handleSubmit} className={styles.formBox}>
-        <div className={styles.title}>운동일지 만들기</div>
-        <div className={styles.section}>
-          <InputField
-            label="사용자 닉네임"
-            placeholder="닉네임을 입력해 주세요"
-            value={nickname}
-            onChange={handleNicknameChange}
-            maxLength={NICKNAME_MAX + 1}
-          />
-          {nicknameError && <div className={styles.errorMsg}>{nicknameError}</div>}
-          <InputField
-            label="운동일지 이름"
-            placeholder="운동일지 이름을 입력해주세요"
-            value={title}
-            onChange={handleTitleChange}
-            maxLength={TITLE_MAX + 1}
-          />
-          {titleError && <div className={styles.errorMsg}>{titleError}</div>}
-          <TextareaField
-            label="운동일지 소개"
-            placeholder="소개 멘트를 작성해 주세요"
-            value={description}
-            onChange={handleDescriptionChange}
-            maxLength={DESCRIPTION_MAX + 1}
-          />
-          {descriptionError && <div className={styles.errorMsg}>{descriptionError}</div>}
-          <BackgroundSelector
-            backgrounds={backgrounds}
-            selected={background}
-            onSelect={setBackground}
-          />
-          <InputField
-            label="비밀번호"
-            type="password"
-            placeholder="비밀번호를 입력해 주세요"
-            value={password}
-            onChange={handlePasswordChange}
-            maxLength={PASSWORD_MAX + 1}
-          />
-          {passwordError && <div className={styles.errorMsg}>{passwordError}</div>}
-          <InputField
-            label="비밀번호 확인"
-            type="password"
-            placeholder="비밀번호를 다시 입력해 주세요"
-            value={passwordCheck}
-            onChange={handlePasswordCheckChange}
-            maxLength={PASSWORD_MAX + 1}
-          />
-          {passwordCheckError && <div className={styles.errorMsg}>{passwordCheckError}</div>}
-          <Message error={error} success={success} />
-          <button 
-            type="submit" 
-            className={styles.submitBtn}
-            disabled={loading}
-          >
-            {loading ? '등록 중...' : '만들기'}
-          </button>
-        </div>
-      </form>
-    </div>
+    <>
+      <Header />
+      <div className={styles.container}>
+        <form onSubmit={handleSubmit} className={styles.formBox}>
+          <div className={styles.title}>운동일지 만들기</div>
+          <div className={styles.section}>
+            <InputField
+              label="사용자 닉네임"
+              placeholder="닉네임을 입력해 주세요"
+              value={nickname}
+              onChange={handleNicknameChange}
+              maxLength={NICKNAME_MAX + 1}
+            />
+            {nicknameError && <div className={styles.errorMsg}>{nicknameError}</div>}
+            <InputField
+              label="운동일지 이름"
+              placeholder="운동일지 이름을 입력해주세요"
+              value={title}
+              onChange={handleTitleChange}
+              maxLength={TITLE_MAX + 1}
+            />
+            {titleError && <div className={styles.errorMsg}>{titleError}</div>}
+            <TextareaField
+              label="운동일지 소개"
+              placeholder="소개 멘트를 작성해 주세요"
+              value={description}
+              onChange={handleDescriptionChange}
+              maxLength={DESCRIPTION_MAX + 1}
+            />
+            {descriptionError && <div className={styles.errorMsg}>{descriptionError}</div>}
+            <BackgroundSelector
+              backgrounds={backgrounds}
+              selected={background}
+              onSelect={setBackground}
+            />
+            <InputField
+              label="비밀번호"
+              type="password"
+              placeholder="비밀번호를 입력해 주세요"
+              value={password}
+              onChange={handlePasswordChange}
+              maxLength={PASSWORD_MAX + 1}
+            />
+            {passwordError && <div className={styles.errorMsg}>{passwordError}</div>}
+            <InputField
+              label="비밀번호 확인"
+              type="password"
+              placeholder="비밀번호를 다시 입력해 주세요"
+              value={passwordCheck}
+              onChange={handlePasswordCheckChange}
+              maxLength={PASSWORD_MAX + 1}
+            />
+            {passwordCheckError && <div className={styles.errorMsg}>{passwordCheckError}</div>}
+            <Message error={error} success={success} />
+            <button 
+              type="submit" 
+              className={styles.submitBtn}
+              disabled={loading}
+            >
+              {loading ? '등록 중...' : '만들기'}
+            </button>
+          </div>
+        </form>
+      </div>
+    </>
   );
 }
