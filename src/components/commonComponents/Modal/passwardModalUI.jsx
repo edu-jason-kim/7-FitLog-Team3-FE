@@ -25,21 +25,20 @@ const PasswordModalUI = ({
     onConfirm(password);
   };
 
+  const inputClassName = error ? `${styles.input} ${styles.inputError}` : styles.input;
+  const labelClassName = error ? `${styles.passwordLabel} ${styles.errorText}` : styles.passwordLabel;
+
+
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
-        {/* 나가기 버튼 */}
-        <button className={styles.closeButton} onClick={onClose} disabled={isLoading}>
-          나가기
-        </button>
-
-        {/* 제목 */}
-        <h3 className={styles.modalTitle}>{title}</h3>
-        {/* 설명 */}
-        <p className={styles.modalDescription}>{description}</p>
+        {/* ... (기존 나가기 버튼, 제목, 설명) ... */}
 
         <form onSubmit={handleSubmit} className={styles.modalForm}>
-          <label htmlFor="password-input" className={styles.passwordLabel}>비밀번호</label>
+          {/* label에 동적으로 클래스 적용 */}
+          <label htmlFor="password-input" className={labelClassName}>
+            비밀번호
+          </label>
           <div className={styles.passwordInputWrapper}>
             <input
               id="password-input"
@@ -47,9 +46,10 @@ const PasswordModalUI = ({
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="비밀번호를 입력해 주세요"
-              className={styles.input}
+              className={inputClassName} // 동적으로 결정된 클래스 적용
               disabled={isLoading}
             />
+            
             <span
               className={styles.passwordToggle}
               onClick={() => setShowPassword(!showPassword)}
