@@ -21,6 +21,7 @@ function App() {
         <Route path="/routines/:journalId" element={<RoutinesDetail />} />
       </Routes>
     </BrowserRouter>
+
   );
 }
 
