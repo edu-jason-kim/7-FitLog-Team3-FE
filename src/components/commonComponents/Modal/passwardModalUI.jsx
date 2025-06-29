@@ -48,7 +48,7 @@ const PasswordModalUI = ({
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="비밀번호를 입력해 주세요"
-              className={inputClassName} // 동적으로 결정된 클래스 적용
+              className={inputClassName} 
               disabled={isLoading}
             />
 
